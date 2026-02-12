@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+env/
+*.log
+
+# Node / Bun
+node_modules/
+bun.lockb
+.wrangler/
+.dev.vars
+
+# Keys
+*.pem
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Cloudflare
+.mf/
+
+# Local fallback logs
+client/logs/

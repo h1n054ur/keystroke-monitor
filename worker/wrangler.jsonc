@@ -1,0 +1,61 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "keystroke-monitor",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-02-12",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // R2 bucket for log storage
+  "r2_buckets": [
+    {
+      "binding": "LOGS_BUCKET",
+      "bucket_name": "keystroke-logs"
+    }
+  ],
+
+  // KV namespace for session metadata index
+  "kv_namespaces": [
+    {
+      "binding": "SESSIONS_KV",
+      "id": "<YOUR_KV_NAMESPACE_ID>"
+    }
+  ],
+
+  // Durable Object for real-time WebSocket hub
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "STREAM_HUB",
+        "class_name": "StreamHub"
+      }
+    ]
+  },
+
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_classes": ["StreamHub"]
+    }
+  ],
+
+  // Queue for async upload processing
+  "queues": {
+    "producers": [
+      {
+        "queue": "keystroke-uploads",
+        "binding": "UPLOAD_QUEUE"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "keystroke-uploads",
+        "max_batch_size": 50,
+        "max_batch_timeout": 1
+      }
+    ]
+  },
+
+  "observability": {
+    "enabled": true
+  }
+}
