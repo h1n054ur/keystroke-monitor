@@ -25,8 +25,8 @@ This project was built to learn and demonstrate:
 ## How It Works
 
 ```
-┌───────────────────────┐                       ┌────────────────────────────────┐
-│    Python Client      │     HTTPS POST        │    Cloudflare Worker           │
+┌───────────────────────┐                        ┌────────────────────────────────┐
+│    Python Client      │     HTTPS POST         │    Cloudflare Worker           │
 │                       │ ───────────────────>   │                                │
 │  pynput keyboard hook │  (returns instantly)   │  /api/upload                   │
 │  smart flush logic    │                        │    ├─ enqueue → CF Queue       │
@@ -35,8 +35,8 @@ This project was built to learn and demonstrate:
 └───────────────────────┘                        │  Queue Consumer (async)        │
                                                  │    ├─ store chunk → R2         │
       ┌────────────┐       WebSocket             │    └─ update session → KV      │
-      │  Dashboard  │ <───────────────────────>  │                                │
-      │  (browser)  │                            │  Durable Object                │
+      │  Dashboard │ <───────────────────────>   │                                │
+      │  (browser) │                             │  Durable Object                │
       └────────────┘                             │    └─ WebSocket hub            │
                                                  │                                │
                                                  │  R2 ── log chunk storage       │
